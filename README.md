@@ -9,7 +9,7 @@
 ![Azure Alerts](https://img.shields.io/badge/Azure-Alerts-red)
 ![Azure Workbooks](https://img.shields.io/badge/Azure-Workbooks-blue)
 
-Production-grade Azure monitoring and observability platform implementing infrastructure telemetry, operational visibility, KQL analytics, automated alerting and cloud monitoring workflows aligned with modern DevOps and SRE operational practices.
+Production-grade Azure monitoring and observability platform implementing infrastructure telemetry, operational visibility, KQL analytics, alert engineering and cloud monitoring workflows aligned with SRE and DevOps operational practices.
 
 ---
 
@@ -19,9 +19,9 @@ Designed and implemented enterprise cloud observability platform using:
 
 ✅ Azure Monitor
 
-✅ Azure Alerts
+✅ Log Analytics Workspace
 
-✅ Azure Log Analytics Workspace
+✅ Azure Alerts
 
 ✅ Azure Workbooks
 
@@ -29,98 +29,118 @@ Designed and implemented enterprise cloud observability platform using:
 
 ✅ Kusto Query Language (KQL)
 
-✅ Automated Incident Alerting
+✅ Operational Visibility
 
 ✅ Dashboard Visualization
 
-✅ Cost Optimization
+✅ Incident Detection
 
-✅ Operational Troubleshooting
+✅ Performance Monitoring
+
+✅ Cost Optimization
 
 ---
 
 # 🎯 Business Requirement
 
-Modern production systems require:
+Modern production infrastructure requires:
 
-❌ No infrastructure visibility
-
-❌ Manual monitoring processes
+❌ Missing telemetry visibility
 
 ❌ Delayed incident detection
 
-❌ Missing telemetry collection
+❌ Manual monitoring process
 
-❌ Lack of operational dashboards
+❌ No operational dashboard
 
-❌ Slow troubleshooting workflows
+❌ Slow troubleshooting
 
-This project solves those challenges using Azure-native monitoring architecture.
+❌ Missing alert automation
+
+This project solves those challenges using Azure-native observability architecture.
 
 ---
 
 # 🛠 Prerequisites
 
-Before deployment ensure:
+Ensure environment readiness.
 
 | Requirement | Details |
 |-------------|----------|
 | Azure Subscription | Active |
 | Azure Monitor | Enabled |
-| Linux VM | Ubuntu VM |
+| Ubuntu Linux VM | Deployed |
 | Log Analytics Workspace | Configured |
-| SSH Access | Enabled |
 | Azure CLI | Installed |
-| Monitoring Permissions | Monitoring Contributor |
+| SSH Access | Enabled |
+| Monitoring Permissions | Contributor |
 
-Verify Azure CLI:
-
-```bash
-az --version
-```
-
-Authenticate Azure:
+Authenticate:
 
 ```bash
 az login
 ```
 
+Verify:
+
+```bash
+az --version
+```
+
 ---
 
-# 🏗 Enterprise Monitoring Architecture
+# 🏗️ Architecture Design
 
 ```mermaid
 graph TD
 
-User[Internet User]
+subgraph Target_Infrastructure
 
-VM[Ubuntu Linux VM]
+AKS[Azure Kubernetes Service]
+
+VMs[Azure Virtual Machines]
+
+end
+
+subgraph Data_Collection
+
+Prom[Prometheus]
+
+AMA[Azure Monitor Agent]
+
+end
+
+subgraph Storage
 
 LAW[Log Analytics Workspace]
 
-Monitor[Azure Monitor]
+end
 
-Alert[Azure Alerts]
+subgraph Visualization
 
-KQL[Kusto Query Language]
+Grafana[Grafana Dashboard]
 
-Workbook[Azure Workbooks]
+AM[Azure Monitor Alerts]
 
-Email[Email Notification]
+end
 
-VM --> LAW
+AKS --> Prom
 
-LAW --> Monitor
+VMs --> Prom
 
-Monitor --> Alert
+AKS --> AMA
 
-Alert --> Email
+VMs --> AMA
 
-LAW --> KQL
+AMA --> LAW
 
-KQL --> Workbook
+Prom --> Grafana
 
-VM --> Monitor
+LAW --> AM
+
+Grafana --> Teams
+
+AM --> Teams
 
 ```
 
@@ -130,87 +150,125 @@ VM --> Monitor
 
 ### 📊 Azure Monitor
 
-Centralized monitoring platform.
-
 Capabilities:
 
-✅ CPU Monitoring
+✅ VM Monitoring
 
 ✅ Metric Collection
 
 ✅ VM Insights
 
-✅ Performance Visibility
+✅ Infrastructure Visibility
 
 ---
 
 ### 📑 Log Analytics Workspace
 
-Centralized telemetry ingestion.
-
 Capabilities:
 
-✅ Log Collection
+✅ Centralized Logging
 
-✅ Infrastructure Analytics
+✅ Telemetry Collection
 
-✅ Query Processing
-
-✅ Data Correlation
-
----
-
-### 🚨 Azure Alerts
-
-Incident detection system.
-
-Capabilities:
-
-✅ Automated Alerting
-
-✅ Threshold Validation
-
-✅ Notification Automation
+✅ KQL Query Analytics
 
 ---
 
 ### 📈 Azure Workbooks
 
-Visualization platform.
-
 Capabilities:
 
-✅ Dashboard Creation
+✅ Dashboard Visualization
 
-✅ Operational Visibility
+✅ Trend Analysis
 
-✅ Interactive Analytics
+✅ Infrastructure Analytics
 
 ---
 
 ### 🔍 KQL Analytics
 
-Query engine implementation.
+Capabilities:
+
+✅ CPU Monitoring
+
+✅ Heartbeat Monitoring
+
+✅ Syslog Analysis
+
+✅ Performance Investigation
+
+---
+
+### 🚨 Azure Alerts
 
 Capabilities:
 
-✅ Infrastructure Queries
+✅ Automated Alerting
 
-✅ Performance Analysis
+✅ Threshold Detection
 
-✅ Heartbeat Monitoring
+✅ Incident Notification
+
+---
+
+# 🚨 Production Alerting Thresholds Built-In
+
+🔴 High CPU Utilization
+
+Trigger:
+
+CPU > 85% for 5 minutes
+
+---
+
+🔴 High Memory Usage
+
+Trigger:
+
+Memory > 85%
+
+---
+
+🟡 Disk Space Warning
+
+Trigger:
+
+Disk Utilization > 85%
+
+---
+
+❌ Service Failure
+
+Trigger:
+
+Critical Service Down
+
+---
+
+🚨 Notification Targets
+
+Configured:
+
+- Email Notification
+- Azure Alert Action Group
+- Incident Visibility
 
 ---
 
 # ⚙️ Configuration Variables
 
-| Variable | Description | Example |
-| :--- | :--- | :--- |
-| vm_name | Linux VM Name | monitoring-vm |
-| cpu_threshold | CPU Alert Threshold | 70 |
-| region | Azure Region | East US |
-| retention_days | Log Retention | 30 |
+Modify deployment using:
+
+terraform.tfvars
+
+| Variable Name | Description | Default Value |
+|---|---|---|
+| resource_group_name | Resource Group | azure-monitoring-rg |
+| location | Azure Region | East US |
+| retention_in_days | Log Retention | 30 |
 | workspace_name | LAW Name | prod-law |
+| cpu_alert_threshold | CPU Alert Value | 85 |
 
 ---
 
@@ -218,78 +276,68 @@ Capabilities:
 
 | Technology | Purpose |
 |---|---|
-| Azure VM | Infrastructure |
-| Ubuntu Linux | Operating System |
-| NGINX | Web Layer |
 | Azure Monitor | Monitoring |
-| Azure Alerts | Incident Response |
-| Log Analytics | Telemetry Platform |
-| Azure Workbooks | Dashboard Visualization |
+| Azure Alerts | Incident Detection |
+| Log Analytics | Log Collection |
+| Azure Workbooks | Dashboard |
+| Ubuntu Linux | OS |
+| NGINX | Web Layer |
+| SSH | Access |
 | KQL | Query Engine |
-| SSH | Linux Access |
 
 ---
 
 # 🚀 Infrastructure Setup
 
-### Linux VM Deployment
-
-Created:
+Implemented:
 
 ✅ Ubuntu Linux VM
 
+✅ NSG Configuration
+
 ✅ Public IP
 
-✅ NSG Rules
+✅ SSH Access
 
-✅ SSH Authentication
-
-Hosted:
-
-NGINX Web Application
+✅ Web Application Hosting
 
 ---
 
-# 📈 Enterprise Monitoring Implementation
-
-## Azure Monitor
+# 📈 Monitoring Implementation
 
 Configured:
 
-- Azure Monitor
+### Azure Monitor
 
 - VM Insights
 
 - Metrics Collection
 
-- Performance Analytics
+- CPU Analytics
 
 ---
 
-## CPU Monitoring
+### Log Analytics
+
+Implemented:
+
+- Telemetry Collection
+
+- Query Analytics
+
+- Log Visibility
+
+---
+
+### Alert Engineering
 
 Configured:
 
-- Percentage CPU
+- Metric Alerts
 
-- Real-Time Metrics
+- CPU Threshold
 
-- Performance Visualization
-
----
-
-# 🚨 Incident Alerting Platform
-
-Alert Configuration:
-
-| Configuration | Value |
-|---|---|
-| Alert Type | Metric Alert |
-| Metric | Percentage CPU |
-| Threshold | >70% |
-| Severity | Sev2 |
-| Notification | Email |
-| Evaluation | Real Time |
+- Email Notifications
 
 ---
 
@@ -307,19 +355,19 @@ stress --cpu 4 --timeout 600
 
 Validated:
 
-✅ CPU Spike Detection
+✅ CPU Spike
 
 ✅ Alert Trigger
 
 ✅ Email Notification
 
-✅ Dashboard Update
+✅ Dashboard Visibility
 
 ---
 
-# 📑 KQL Queries
+# 📑 KQL Query Examples
 
-## CPU Monitoring Query
+## CPU Query
 
 ```kql
 InsightsMetrics
@@ -335,7 +383,7 @@ by bin(TimeGenerated,5m)
 
 ---
 
-## Heartbeat Monitoring
+## Heartbeat Query
 
 ```kql
 Heartbeat
@@ -363,23 +411,23 @@ Syslog
 
 ## VM Monitoring Dashboard
 
-![VM Monitoring Dashboard](images/vm-monitoring-dashboard.PNG)
+![VM Monitoring](images/vm-monitoring-dashboard.PNG)
 
 ---
 
-## Network Monitoring Dashboard
+## Network Dashboard
 
-![Network Monitoring](images/network-monitoring-dashboard.PNG)
+![Network Dashboard](images/network-monitoring-dashboard.PNG)
 
 ---
 
-## Disk Monitoring Dashboard
+## Disk Monitoring
 
 ![Disk Monitoring](images/disk-monitoring-dashboard.PNG)
 
 ---
 
-## Azure Monitor Onboarding
+## Azure Monitor
 
 ![Azure Monitor](images/azure-monitor-onboarding.PNG)
 
@@ -391,33 +439,15 @@ Syslog
 
 ---
 
-## Email Action Group
-
-![Action Group](images/email-action-group-configuration.PNG)
-
----
-
-## Alert Review
-
-![Alert Review](images/alert-rule-review.PNG)
-
----
-
-## Alerts Dashboard
-
-![Alerts](images/alerts-dashboard.PNG)
-
----
-
 ## Email Notification
 
 ![Email Notification](images/email-alert-notification.PNG)
 
 ---
 
-## Email Notification Validation
+## Alert Dashboard
 
-![Email Validation](images/email-alert-notification-2.PNG)
+![Alert Dashboard](images/alerts-dashboard.PNG)
 
 ---
 
@@ -427,13 +457,7 @@ Syslog
 
 ---
 
-## Heartbeat Results
-
-![Heartbeat Results](images/heartbeat-monitoring-results.PNG)
-
----
-
-## CPU Stress Validation
+## CPU Stress Testing
 
 ![CPU Stress](images/linux-cpu-stress-testing.PNG)
 
@@ -441,7 +465,7 @@ Syslog
 
 ## Deployment Validation
 
-![Deployment Complete](images/monitoring-deployment-complete.PNG)
+![Deployment](images/monitoring-deployment-complete.PNG)
 
 ---
 
@@ -450,9 +474,9 @@ Syslog
 | Challenge | Solution |
 |---|---|
 | SSH Failure | Native SSH + PEM |
-| Alerts Not Triggering | Stress Utility |
-| Missing Logs | AMA Validation |
-| Cost Increase | Bastion Removal |
+| Missing Alerts | CPU Stress Validation |
+| Logs Missing | AMA Validation |
+| Cost Issue | Bastion Removal |
 
 ---
 
@@ -470,33 +494,33 @@ Cloud Monitoring
 
 Incident Engineering
 
-Linux Administration
+Observability Engineering
 
-Infrastructure Monitoring
+Dashboard Visualization
+
+Linux Administration
 
 Operational Visibility
 
-Dashboard Engineering
-
 Cloud Operations
 
-Observability Engineering
+SRE Practices
 
 ---
 
 # 📈 Business Outcome
 
-Successfully implemented cloud-native observability platform supporting:
-
-✅ Infrastructure Monitoring
+Successfully implemented cloud-native monitoring platform supporting:
 
 ✅ Incident Detection
 
+✅ Infrastructure Visibility
+
 ✅ Alert Engineering
 
-✅ Linux Visibility
-
 ✅ Dashboard Visualization
+
+✅ Linux Monitoring
 
 ✅ Operational Troubleshooting
 
