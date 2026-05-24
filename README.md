@@ -1,173 +1,347 @@
-# Production-Ready Azure VM Monitoring & Observability Platform
+# 📊 Production-Ready Azure VM Monitoring & Observability Platform
 
-## Executive Summary
+![Azure](https://img.shields.io/badge/Azure-Cloud-0078D4?logo=microsoftazure&logoColor=white)
+![Azure Monitor](https://img.shields.io/badge/Azure-Monitor-0078D4)
+![Log Analytics](https://img.shields.io/badge/Log_Analytics-KQL-68217A)
+![KQL](https://img.shields.io/badge/KQL-Observability-0078D4)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-Linux-E95420?logo=ubuntu)
+![NGINX](https://img.shields.io/badge/NGINX-Web_Server-009639?logo=nginx)
+![Azure Alerts](https://img.shields.io/badge/Azure-Alerts-red)
+![Azure Workbooks](https://img.shields.io/badge/Azure-Workbooks-blue)
 
-Designed and implemented a production-style cloud monitoring and observability platform on Microsoft Azure using Linux virtual machines, Azure Monitor, Log Analytics Workspace, Kusto Query Language (KQL), Azure Alerts, and Azure Workbooks.
-
-This project demonstrates real-world cloud operations practices including:
-
-* Infrastructure monitoring
-* Incident alerting
-* Operational visibility
-* Performance analysis
-* Linux service monitoring
-* Dashboard visualization
-* Cost optimization
-* Production troubleshooting
-
-The environment simulates a modern DevOps/SRE monitoring workflow where infrastructure metrics, logs, and operational events are continuously collected, analyzed, visualized, and used to trigger automated notifications.
+Production-grade Azure monitoring and observability platform implementing infrastructure telemetry, operational visibility, KQL analytics, automated alerting and cloud monitoring workflows aligned with modern DevOps and SRE operational practices.
 
 ---
 
-# Architecture
+# 📌 Executive Summary
 
-```text
-Internet Users
-       |
-       v
-Azure Public IP
-       |
-       v
-Ubuntu Linux VM (NGINX)
-       |
-       +----------------+
-       |                |
-       v                v
-Azure Monitor      Log Analytics Workspace
-       |                |
-       +----------------+
-                |
-                v
-        Azure Alerts + KQL Queries
-                |
-                v
-         Email Notifications
-                |
-                v
-         Azure Workbooks Dashboard
+Designed and implemented enterprise cloud observability platform using:
+
+✅ Azure Monitor
+
+✅ Azure Alerts
+
+✅ Azure Log Analytics Workspace
+
+✅ Azure Workbooks
+
+✅ Linux Infrastructure Monitoring
+
+✅ Kusto Query Language (KQL)
+
+✅ Automated Incident Alerting
+
+✅ Dashboard Visualization
+
+✅ Cost Optimization
+
+✅ Operational Troubleshooting
+
+---
+
+# 🎯 Business Requirement
+
+Modern production systems require:
+
+❌ No infrastructure visibility
+
+❌ Manual monitoring processes
+
+❌ Delayed incident detection
+
+❌ Missing telemetry collection
+
+❌ Lack of operational dashboards
+
+❌ Slow troubleshooting workflows
+
+This project solves those challenges using Azure-native monitoring architecture.
+
+---
+
+# 🛠 Prerequisites
+
+Before deployment ensure:
+
+| Requirement | Details |
+|-------------|----------|
+| Azure Subscription | Active |
+| Azure Monitor | Enabled |
+| Linux VM | Ubuntu VM |
+| Log Analytics Workspace | Configured |
+| SSH Access | Enabled |
+| Azure CLI | Installed |
+| Monitoring Permissions | Monitoring Contributor |
+
+Verify Azure CLI:
+
+```bash
+az --version
+```
+
+Authenticate Azure:
+
+```bash
+az login
 ```
 
 ---
 
-# Technologies Used
+# 🏗 Enterprise Monitoring Architecture
 
-| Service                 | Purpose                   |
-| ----------------------- | ------------------------- |
-| Microsoft Azure         | Cloud Platform            |
-| Azure VM                | Linux server hosting      |
-| Ubuntu 24.04            | Operating System          |
-| NGINX                   | Web server                |
-| Azure Monitor           | Infrastructure monitoring |
-| Log Analytics Workspace | Log storage and analytics |
-| Azure Alerts            | Incident alerting         |
-| Azure Workbooks         | Dashboard visualization   |
-| KQL                     | Querying monitoring logs  |
-| SSH                     | Secure Linux access       |
+```mermaid
+graph TD
+
+User[Internet User]
+
+VM[Ubuntu Linux VM]
+
+LAW[Log Analytics Workspace]
+
+Monitor[Azure Monitor]
+
+Alert[Azure Alerts]
+
+KQL[Kusto Query Language]
+
+Workbook[Azure Workbooks]
+
+Email[Email Notification]
+
+VM --> LAW
+
+LAW --> Monitor
+
+Monitor --> Alert
+
+Alert --> Email
+
+LAW --> KQL
+
+KQL --> Workbook
+
+VM --> Monitor
+
+```
 
 ---
 
-# Core Implementation Areas
+# ⚙️ Core Monitoring Components
 
-## Infrastructure Setup
+### 📊 Azure Monitor
 
-* Created Azure Ubuntu Linux Virtual Machine
-* Configured Public IP access
-* Configured NSG firewall rules
-* Connected using SSH PEM key authentication
-* Hosted live web application on VM
+Centralized monitoring platform.
+
+Capabilities:
+
+✅ CPU Monitoring
+
+✅ Metric Collection
+
+✅ VM Insights
+
+✅ Performance Visibility
 
 ---
 
-# Enterprise Monitoring & Observability
+### 📑 Log Analytics Workspace
+
+Centralized telemetry ingestion.
+
+Capabilities:
+
+✅ Log Collection
+
+✅ Infrastructure Analytics
+
+✅ Query Processing
+
+✅ Data Correlation
+
+---
+
+### 🚨 Azure Alerts
+
+Incident detection system.
+
+Capabilities:
+
+✅ Automated Alerting
+
+✅ Threshold Validation
+
+✅ Notification Automation
+
+---
+
+### 📈 Azure Workbooks
+
+Visualization platform.
+
+Capabilities:
+
+✅ Dashboard Creation
+
+✅ Operational Visibility
+
+✅ Interactive Analytics
+
+---
+
+### 🔍 KQL Analytics
+
+Query engine implementation.
+
+Capabilities:
+
+✅ Infrastructure Queries
+
+✅ Performance Analysis
+
+✅ Heartbeat Monitoring
+
+---
+
+# ⚙️ Configuration Variables
+
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| vm_name | Linux VM Name | monitoring-vm |
+| cpu_threshold | CPU Alert Threshold | 70 |
+| region | Azure Region | East US |
+| retention_days | Log Retention | 30 |
+| workspace_name | LAW Name | prod-law |
+
+---
+
+# ⚙️ Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Azure VM | Infrastructure |
+| Ubuntu Linux | Operating System |
+| NGINX | Web Layer |
+| Azure Monitor | Monitoring |
+| Azure Alerts | Incident Response |
+| Log Analytics | Telemetry Platform |
+| Azure Workbooks | Dashboard Visualization |
+| KQL | Query Engine |
+| SSH | Linux Access |
+
+---
+
+# 🚀 Infrastructure Setup
+
+### Linux VM Deployment
+
+Created:
+
+✅ Ubuntu Linux VM
+
+✅ Public IP
+
+✅ NSG Rules
+
+✅ SSH Authentication
+
+Hosted:
+
+NGINX Web Application
+
+---
+
+# 📈 Enterprise Monitoring Implementation
 
 ## Azure Monitor
 
-* Enabled Azure Monitor for VM
-* Connected VM with Log Analytics Workspace
-* Enabled VM Insights
-* Collected performance metrics
+Configured:
+
+- Azure Monitor
+
+- VM Insights
+
+- Metrics Collection
+
+- Performance Analytics
+
+---
 
 ## CPU Monitoring
 
-Configured CPU monitoring using:
+Configured:
 
-* Percentage CPU metrics
-* Azure Monitor metrics
-* Real-time CPU visualization
+- Percentage CPU
 
----
+- Real-Time Metrics
 
-# Incident Alerting & Response System
-
-Created production-style CPU alerts:
-
-| Configuration | Value              |
-| ------------- | ------------------ |
-| Alert Type    | Metric Alert       |
-| Metric        | Percentage CPU     |
-| Threshold     | > 70%              |
-| Severity      | Sev2               |
-| Action Group  | Email Notification |
-| Evaluation    | Real-time          |
+- Performance Visualization
 
 ---
 
-# Incident Simulation
+# 🚨 Incident Alerting Platform
 
-Used Linux stress utility to simulate high CPU load:
+Alert Configuration:
+
+| Configuration | Value |
+|---|---|
+| Alert Type | Metric Alert |
+| Metric | Percentage CPU |
+| Threshold | >70% |
+| Severity | Sev2 |
+| Notification | Email |
+| Evaluation | Real Time |
+
+---
+
+# 🔥 Incident Simulation
+
+Stress utility:
 
 ```bash
 sudo apt update
+
 sudo apt install stress -y
+
 stress --cpu 4 --timeout 600
 ```
 
-This generated:
+Validated:
 
-* High CPU spikes
-* Azure Monitor alerts
-* Email notifications
-* Monitoring dashboard metrics
+✅ CPU Spike Detection
 
----
+✅ Alert Trigger
 
-# Email Notification Proof
+✅ Email Notification
 
-Successfully configured:
-
-* Azure Alert Action Group
-* Email notification delivery
-* Real-time alert emails
-
-Example:
-
-```text
-Alert Name: High-CPU-Alert
-Metric: Percentage CPU
-Threshold: Greater than 70%
-Severity: Sev2
-```
+✅ Dashboard Update
 
 ---
 
-# Log Analytics & KQL
+# 📑 KQL Queries
 
 ## CPU Monitoring Query
 
 ```kql
 InsightsMetrics
-| where Namespace == "Processor"
-| summarize AvgCPU=avg(Val) by bin(TimeGenerated, 5m)
+
+| where Namespace=="Processor"
+
+| summarize AvgCPU=avg(Val)
+
+by bin(TimeGenerated,5m)
+
 | render timechart
 ```
 
 ---
 
-## Heartbeat Monitoring Query
+## Heartbeat Monitoring
 
 ```kql
 Heartbeat
+
 | sort by TimeGenerated desc
+
 | take 10
 ```
 
@@ -177,251 +351,167 @@ Heartbeat
 
 ```kql
 Syslog
+
 | sort by TimeGenerated desc
+
 | take 50
 ```
 
 ---
 
-# Workbook Dashboard
-
-Created Azure Workbook dashboard for:
-
-* CPU visualization
-* Time-series monitoring
-* Infrastructure observability
-* Operational insights
-
-Dashboard includes:
-
-* Interactive charts
-* Real-time metrics
-* VM monitoring visualization
-
----
-
-# Linux Operations Performed
-
-## SSH Access
-
-```bash
-ssh -i "C:\Users\Amit Sharma\Downloads\amit009.pem" azureuser@4.213.35.81
-```
-
----
-
-## NGINX Installation
-
-```bash
-sudo apt update
-sudo apt install nginx -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
-```
-
----
-
-## NGINX Status Monitoring
-
-```bash
-sudo systemctl status nginx
-```
-
----
-
-# Technical Challenges & Engineering Solutions
-
-## Challenge 1 — SSH Connection Failure
-
-### Problem
-
-Initial SSH connection through Azure Bastion failed.
-
-### Solution
-
-* Used Native SSH
-* Connected using PEM private key
-* Verified NSG port 22 access
-
----
-
-## Challenge 2 — Alerts Not Triggering
-
-### Problem
-
-CPU alerts were not firing initially.
-
-### Solution
-
-* Installed stress utility
-* Generated artificial CPU load
-* Increased CPU consumption manually
-* Verified Azure Monitor metrics
-
----
-
-## Challenge 3 — No Logs Appearing in Log Analytics
-
-### Problem
-
-Syslog/KQL queries initially returned no data.
-
-### Solution
-
-* Verified Azure Monitor Agent heartbeat
-* Used correct KQL tables
-* Queried Heartbeat and InsightsMetrics tables
-* Adjusted time range
-
----
-
-## Challenge 4 — Cost Optimization
-
-### Problem
-
-Azure Bastion was increasing Pay-As-You-Go cost.
-
-### Solution
-
-* Deleted Azure Bastion resource
-* Continued using SSH PEM authentication
-* Reduced monitoring lab cost significantly
-
----
-
-# Technical Competencies Demonstrated
-
-## Azure Skills
-
-* Azure VM Management
-* Azure Monitor
-* Azure Alerts
-* Azure Workbooks
-* Log Analytics
-* Infrastructure Monitoring
-* Incident Monitoring
-* Cloud Operations
-
----
-
-## Linux Skills
-
-* SSH Administration
-* Linux Monitoring
-* NGINX Administration
-* Service Management
-* CPU Stress Testing
-* Operational Troubleshooting
-
----
-
-## Observability Skills
-
-* KQL Querying
-* Metrics Analysis
-* Alert Engineering
-* Dashboard Visualization
-* Operational Visibility
-* Performance Monitoring
-
----
-
-# Live Services
-
-## Live Website
-
-```text
-http://4.213.35.81
-```
-
----
-
-# Screenshots
+# 📸 Project Proof Screenshots
 
 ## VM Monitoring Dashboard
 
 ![VM Monitoring Dashboard](images/vm-monitoring-dashboard.PNG)
 
+---
+
 ## Network Monitoring Dashboard
 
-![Network Monitoring Dashboard](images/network-monitoring-dashboard.PNG)
+![Network Monitoring](images/network-monitoring-dashboard.PNG)
+
+---
 
 ## Disk Monitoring Dashboard
 
-![Disk Monitoring Dashboard](images/disk-monitoring-dashboard.PNG)
+![Disk Monitoring](images/disk-monitoring-dashboard.PNG)
+
+---
 
 ## Azure Monitor Onboarding
 
-![Azure Monitor Onboarding](images/azure-monitor-onboarding.PNG)
+![Azure Monitor](images/azure-monitor-onboarding.PNG)
 
-## CPU Alert Rule Configuration
+---
 
-![CPU Alert Rule Configuration](images/cpu-alert-rule-configuration.PNG)
+## CPU Alert Rule
 
-## Email Action Group Configuration
+![CPU Alert](images/cpu-alert-rule-configuration.PNG)
 
-![Email Action Group Configuration](images/email-action-group-configuration.PNG)
+---
 
-## Alert Rule Review
+## Email Action Group
 
-![Alert Rule Review](images/alert-rule-review.PNG)
+![Action Group](images/email-action-group-configuration.PNG)
+
+---
+
+## Alert Review
+
+![Alert Review](images/alert-rule-review.PNG)
+
+---
 
 ## Alerts Dashboard
 
-![Alerts Dashboard](images/alerts-dashboard.PNG)
-
-## Email Alert Notification
-
-![Email Alert Notification](images/email-alert-notification.PNG)
-
-## Email Alert Notification 2
-
-![Email Alert Notification 2](images/email-alert-notification-2.PNG)
-
-## Heartbeat KQL Query
-
-![Heartbeat KQL Query](images/heartbeat-kql-query.PNG)
-
-## Heartbeat Monitoring Results
-
-![Heartbeat Monitoring Results](images/heartbeat-monitoring-results.PNG)
-
-## Linux CPU Stress Testing
-
-![Linux CPU Stress Testing](images/linux-cpu-stress-testing.PNG)
-
-## Monitoring Deployment Complete
-
-![Monitoring Deployment Complete](images/monitoring-deployment-complete.PNG)
+![Alerts](images/alerts-dashboard.PNG)
 
 ---
 
-# Business & Technical Outcome
+## Email Notification
 
-Successfully implemented a cloud-native monitoring and observability solution capable of:
-
-* Detecting infrastructure incidents
-* Sending automated alerts
-* Monitoring Linux VM health
-* Visualizing operational metrics
-* Performing production-style infrastructure monitoring
+![Email Notification](images/email-alert-notification.PNG)
 
 ---
 
-# Professional Project Summary
+## Email Notification Validation
 
-```text
-Engineered a production-grade Azure monitoring and observability platform using Azure Virtual Machines, Azure Monitor, Log Analytics Workspace, Azure Alerts, Kusto Query Language (KQL), and Azure Workbooks. Implemented real-time CPU monitoring, automated incident alerting via email notifications, Linux operational monitoring, dashboard visualization, and infrastructure observability workflows aligned with DevOps and SRE operational practices.
-```
+![Email Validation](images/email-alert-notification-2.PNG)
 
 ---
 
-# Author
+## Heartbeat Query
 
-Amit Kumar
+![Heartbeat](images/heartbeat-kql-query.PNG)
 
-GitHub:
-[https://github.com/Akamitt009](https://github.com/Akamitt009)
+---
 
-## LinkedIn
+## Heartbeat Results
+
+![Heartbeat Results](images/heartbeat-monitoring-results.PNG)
+
+---
+
+## CPU Stress Validation
+
+![CPU Stress](images/linux-cpu-stress-testing.PNG)
+
+---
+
+## Deployment Validation
+
+![Deployment Complete](images/monitoring-deployment-complete.PNG)
+
+---
+
+# ⚠️ Engineering Challenges Solved
+
+| Challenge | Solution |
+|---|---|
+| SSH Failure | Native SSH + PEM |
+| Alerts Not Triggering | Stress Utility |
+| Missing Logs | AMA Validation |
+| Cost Increase | Bastion Removal |
+
+---
+
+# 🧠 Skills Demonstrated
+
+Azure Monitor
+
+Azure Alerts
+
+KQL
+
+Azure Workbooks
+
+Cloud Monitoring
+
+Incident Engineering
+
+Linux Administration
+
+Infrastructure Monitoring
+
+Operational Visibility
+
+Dashboard Engineering
+
+Cloud Operations
+
+Observability Engineering
+
+---
+
+# 📈 Business Outcome
+
+Successfully implemented cloud-native observability platform supporting:
+
+✅ Infrastructure Monitoring
+
+✅ Incident Detection
+
+✅ Alert Engineering
+
+✅ Linux Visibility
+
+✅ Dashboard Visualization
+
+✅ Operational Troubleshooting
+
+---
+
+# 👨‍💻 Author
+
+## Amit Kumar
+
+Cloud Engineer | Azure Administrator | Observability Engineer
+
+GitHub
+
+https://github.com/Akamitt009
+
+LinkedIn
+
 https://www.linkedin.com/in/amit-kumar-657255232/
